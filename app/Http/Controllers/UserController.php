@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
+use Hash;
 use Illuminate\Http\Request;
 use App\User;
 
@@ -18,7 +20,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::latest('id')->paginate(7);
+        $users = User::latest('id')->paginate(6);
         return view('users.all', compact('users'));
     }
 
@@ -29,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -40,7 +42,25 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedDate = Validator::make($request->all(),[
+          'name' => 'required|max:40',
+          'email' => 'required|email|unique:users',
+          'password' => 'required|min:8'
+        ]);
+
+        if ($validatedDate->fails()) {
+          return redirect('users/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        $inputs=[
+          'name' => $request['name'],
+          'email' => $request['email'],
+          'password' => Hash::make($request['password']),
+        ];
+        if (User::create($inputs)) {
+          return redirect('users');
+        }
     }
 
     /**
@@ -51,7 +71,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('users.view', compact('user'));
     }
 
     /**
@@ -62,7 +83,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('users.update', compact('user'));
     }
 
     /**
@@ -74,7 +96,25 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+          $validatedData = Validator::make($request->all(),[
+           'name' => 'required|max:40',
+           'email' => 'required|email',
+           'password' => 'required|min:8'
+       ]);
+             if ($validatedData->fails()) {
+               return redirect('users/create')
+                           ->withErrors($validatedData)
+                           ->withInput();
+           }
+
+          $inputs = [
+                     'name' => $request['name'],
+                     'email' => $request['email'],
+                     'password' => Hash::make($request['password']),
+                 ];
+          User::find($id)->update($inputs);
+
+          return redirect("users");
     }
 
     /**
@@ -85,6 +125,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+          User::find($id)->delete();
+          return redirect("users");
     }
 }
