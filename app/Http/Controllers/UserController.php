@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::latest('id')->paginate(5);
+        return view('users.all', compact('users'));
     }
 
     /**
