@@ -20,3 +20,7 @@ Route::resource('users','UserController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/uploadfile','UserController@uploadFile');
+
+Route::post('/uploadfile','UserController@uploadFilePost');

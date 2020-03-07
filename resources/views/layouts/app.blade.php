@@ -37,7 +37,8 @@
 
                       @else
                           <li class="nav-item"><a class="nav-link" href="{{ url('/users') }}">Users</a></li>
-                          @endguest
+                          <li class="nav-item"><a class="nav-link" href="{{ url('/uploadfile') }}">Upload File</a></li>
+                      @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->

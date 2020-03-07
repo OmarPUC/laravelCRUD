@@ -128,4 +128,25 @@ class UserController extends Controller
           User::find($id)->delete();
           return redirect("users");
     }
+
+    /* Return view to upload file */
+
+    public function uploadFile(){
+    	return view('uploadfile');
+    }
+
+    /* Example of File Upload */
+
+    public function uploadFilePost(Request $request){
+      $request->validate([
+        'fileToUpload' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+      ]);
+
+      $imageName = time().'.'.$request->fileToUpload->extension();
+      $request->fileToUpload->move(public_path('images'), $imageName);
+
+      return back()->with('success','You have successfully upload image.')
+                   ->with('fileToUpload',$imageName);
+    }
+
 }
