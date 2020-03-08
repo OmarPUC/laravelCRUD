@@ -21,6 +21,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Single File Upload
 Route::get('/uploadfile','UserController@uploadFile');
 
 Route::post('/uploadfile','UserController@uploadFilePost');
+
+
+
+// Multiple File Upload
+Route::get('/file','FileController@create');
+
+Route::post('/file','FileController@store');

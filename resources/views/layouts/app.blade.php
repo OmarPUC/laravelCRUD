@@ -38,6 +38,7 @@
                       @else
                           <li class="nav-item"><a class="nav-link" href="{{ url('/users') }}">Users</a></li>
                           <li class="nav-item"><a class="nav-link" href="{{ url('/uploadfile') }}">Upload File</a></li>
+                          <li class="nav-item"><a class="nav-link" href="{{ url('/file') }}">Multiple File Upload</a></li>
                       @endguest
                     </ul>
 
