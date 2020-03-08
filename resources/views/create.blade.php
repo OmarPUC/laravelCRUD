@@ -45,7 +45,6 @@
 
   </form>
   <a class="btn btn-warning" href="{{url('/home')}}" role="button">Back to Home</a>
-  <!-- <button type="button" class="btn btn-warning" style="margin-top:10px"><a href="" style="color:#fff; text-decoration: none;">Back to Home</a></button> -->
   </div>
 
 

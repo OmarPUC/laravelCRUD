@@ -18,17 +18,20 @@ Route::get('/', function () {
 Route::resource('users','UserController');
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Single File Upload
 Route::get('/uploadfile','UserController@uploadFile');
-
 Route::post('/uploadfile','UserController@uploadFilePost');
 
 
 
 // Multiple File Upload
 Route::get('/file','FileController@create');
-
 Route::post('/file','FileController@store');
+
+
+// Drag And Drop File Upload
+Route::get('image/upload','ImageUploadController@Create');
+Route::post('image/upload/store','ImageUploadController@Store');
+Route::post('image/delete','ImageUploadController@Destroy');
