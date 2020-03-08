@@ -5,29 +5,27 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
 <body>
-  <div class="container lst">
+  <div class="container">
+      @if (count($errors) > 0)
+      <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+          @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+      @endif
 
-    @if (count($errors) > 0)
-    <div class="alert alert-danger">
-      <strong>Whoops!</strong> There were some problems with your input.<br><br>
-      <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-    @endif
-
-    @if(session('success'))
+        @if(session('success'))
         <div class="alert alert-success">
           {{ session('success') }}
         </div>
-    @endif
+        @endif
 
-  <h3 class="well">Laravel Multiple File Upload</h3>
-
-  <form method="post" action="{{url('file')}}" enctype="multipart/form-data">
-      {{csrf_field()}}
+    <h3 class="well">Laravel Multiple File Upload</h3>
+<form method="post" action="{{url('file')}}" enctype="multipart/form-data">
+  {{csrf_field()}}
         <div class="input-group control-group increment" >
           <input type="file" name="filename[]" class="form-control">
           <div class="input-group-btn">
@@ -46,9 +44,13 @@
         <button type="submit" class="btn btn-primary" style="margin-top:10px">Submit</button>
 
   </form>
+  <a class="btn btn-warning" href="{{url('/home')}}" role="button">Back to Home</a>
+  <!-- <button type="button" class="btn btn-warning" style="margin-top:10px"><a href="" style="color:#fff; text-decoration: none;">Back to Home</a></button> -->
   </div>
 
+
 <script type="text/javascript">
+
 
     $(document).ready(function() {
 
